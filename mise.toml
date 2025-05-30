@@ -1,0 +1,3 @@
+[tools]
+node = "lts"
+terraform = "1.12.1"
