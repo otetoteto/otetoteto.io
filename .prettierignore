@@ -1,4 +1,8 @@
 **/.git
 **/node_modules
+**/public
+**/dist
+**/.astro
+**/.wrangler
 
 pnpm-lock.yaml
