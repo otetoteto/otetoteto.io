@@ -1,0 +1,34 @@
+---
+type Props = {
+  title?: string;
+  description?: string;
+  robots?: string;
+};
+const { title, description, robots } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    {robots && <meta name="robots" content={robots} />}
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#525eb9" />
+    <title>{title ?? "otetoteto.io"}</title>
+    <meta
+      name="description"
+      content={description ?? "otetotetoのサイトです。気が向いたときにあることないこと吐き出す場です。"}
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
