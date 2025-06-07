@@ -6,4 +6,9 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   site: "https://otetoteto.io",
   integrations: [sitemap()],
+  vite: {
+    css: {
+      transformer: "lightningcss",
+    },
+  },
 });
