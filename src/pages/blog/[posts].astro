@@ -1,0 +1,27 @@
+---
+import type { MarkdownInstance } from "astro";
+import type { BlogPostFrontmatter } from "../../blogPosts/~type";
+import BaseLayout from "../../components/BaseLayout/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  type Post = MarkdownInstance<BlogPostFrontmatter>;
+  const posts: Post[] = await Astro.glob<BlogPostFrontmatter>("../../blogPosts/*.md");
+  return posts
+    .filter((post) => post.frontmatter.published)
+    .map((post) => ({
+      params: {
+        posts: post.file
+          .replace(/\.(md|mdx)$/, "")
+          .split("/")
+          .at(-1),
+      },
+      props: {
+        post,
+      },
+    }));
+}
+---
+
+<BaseLayout>
+  <Astro.props.post.Content />
+</BaseLayout>
