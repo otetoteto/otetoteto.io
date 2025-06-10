@@ -1,0 +1,22 @@
+---
+const year = new Date().getFullYear();
+---
+
+<hr class="footer-divide" />
+<footer class="footer">
+  <p>
+    © {year} - otetoteto, All rights reserved.
+  </p>
+  <p>このブログは <a href="https://astro.build/">Astro</a> で構築されています。</p>
+</footer>
+
+<style>
+  .footer {
+    padding-block: 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  .footer-divide {
+    grid-column: col-start / span 12;
+  }
+</style>

@@ -1,0 +1,61 @@
+---
+
+---
+
+<header class="header">
+  <a href="/" class="header-title">otetoteo.io</a>
+  <nav class="header-nav">
+    <ul>
+      <li><a href="/blog">Blog</a></li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const navLinks = document.querySelectorAll(".header-nav a");
+  for (const link of navLinks) {
+    const href = link.getAttribute("href");
+    if (href === null || href === "/") continue;
+    if (window.location.pathname.startsWith(href)) {
+      link.setAttribute("aria-current", "page");
+    }
+  }
+</script>
+
+<style>
+  .header {
+    padding-block: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .header-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: max-content;
+  }
+
+  .header-nav {
+    ul {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: max-content;
+      gap: 1rem;
+    }
+
+    a {
+      font-size: 1.125rem;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    a[aria-current="page"] {
+      font-weight: bold;
+      color: var(--text-color-accent);
+    }
+  }
+</style>

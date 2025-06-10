@@ -1,5 +1,8 @@
 ---
 import "../../styles/global.css";
+import Footer from "./Footer.astro";
+import Header from "./Header.astro";
+import MainContainer from "./MainContainer.astro";
 
 type Props = {
   title?: string;
@@ -29,8 +32,38 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       name="description"
       content={description ?? "otetotetoのサイトです。気が向いたときにあることないこと吐き出す場です。"}
     />
+    <style is:global>
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        transition:
+          color 0.4s,
+          background-color 0.4s;
+
+        display: grid;
+        grid-template-columns: repeat(12, [col-start] 1fr);
+        grid-template-rows: auto 1fr auto;
+        column-gap: 1rem;
+        min-height: 100svh;
+        padding-inline: 1rem;
+
+        :where(& > *) {
+          grid-column: col-start / span 12;
+        }
+
+        @media (width > 768px) {
+          :where(& > *) {
+            grid-column: col-start 2 / span 10;
+          }
+        }
+      }
+    </style>
   </head>
   <body>
-    <slot />
+    <Header />
+    <MainContainer>
+      <slot />
+    </MainContainer>
+    <Footer />
   </body>
 </html>
