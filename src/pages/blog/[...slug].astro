@@ -1,0 +1,62 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../components/BaseLayout/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection("blog");
+  return blogEntries
+    .filter(({ data }) => data.published)
+    .map((entry) => ({
+      params: { slug: entry.slug },
+      props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<BaseLayout title={entry.data.title}>
+  <article class="post-container">
+    <h1 class="post-title">{entry.data.title}</h1>
+    <Content />
+  </article>
+</BaseLayout>
+
+<style is:inline>
+  .post-container {
+    padding-block: 1.5rem;
+    display: grid;
+    gap: 1rem;
+
+    .post-title {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    pre {
+      padding: 1rem;
+    }
+
+    code:not(pre *) {
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.3rem;
+      background-color: blueviolet;
+      color: yellow;
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .astro-code,
+    .astro-code span {
+      color: var(--shiki-dark) !important;
+      background-color: var(--shiki-dark-bg) !important;
+      /* フォントスタイルを変更したい場合のみ */
+      font-style: var(--shiki-dark-font-style) !important;
+      font-weight: var(--shiki-dark-font-weight) !important;
+      text-decoration: var(--shiki-dark-text-decoration) !important;
+    }
+  }
+</style>

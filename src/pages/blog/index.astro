@@ -1,7 +1,28 @@
 ---
 import BaseLayout from "../../components/BaseLayout/BaseLayout.astro";
+
+import { getCollection } from "astro:content";
+
+const blogEntries = await getCollection("blog");
 ---
 
 <BaseLayout title="otetoteto.io | Blog">
-  <h1>Hello My Blog!!</h1>
+  <ul class="blog-posts">
+    {
+      blogEntries
+        .filter(({ data }) => data.published)
+        .map((post) => (
+          <li>
+            <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+            <p>{post.data.publishedDate}</p>
+          </li>
+        ))
+    }
+  </ul>
 </BaseLayout>
+
+<style>
+  .blog-posts {
+    padding-block: 1rem;
+  }
+</style>
