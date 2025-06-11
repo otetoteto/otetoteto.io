@@ -4,6 +4,6 @@ resource "cloudflare_dns_record" "this" {
   proxied  = true
   ttl      = 1
   type     = "AAAA"
-  zone_id  = "e77e06168a8bfc08eb4332ecf5ac08d8"
+  zone_id  = var.cloudflare_zone_id
   settings = {}
 }
