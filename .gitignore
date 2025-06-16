@@ -28,3 +28,5 @@ pnpm-debug.log*
 .terraform/
 
 mise.local.toml
+
+.claude/settings.local.json
