@@ -13,5 +13,6 @@ export const blogCollection = defineCollection({
     tags: z.array(z.union(tags)).min(1, "タグを1つ以上指定してください"),
     published: z.boolean(),
     publishedDate: z.string(),
+    thumbnail: z.string().nonempty(),
   }),
 });
