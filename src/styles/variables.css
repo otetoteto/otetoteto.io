@@ -1,10 +1,9 @@
 :root {
-  --text-color: light-dark(#333, #fafafa);
-  --text-color-accent: light-dark(#333, #5975d0);
+  --text-color: light-dark(oklch(0.2 0.05 260), oklch(0.9 0.025 180));
 
   /* background color */
-  --bg-color-light: linear-gradient(135deg, oklch(93.916% 0.02272 217.855), oklch(90.723% 0.03291 180.082));
-  --bg-color-dark: linear-gradient(135deg, oklch(26.053% 0.05001 231.865), oklch(24.642% 0.04927 165.526));
+  --bg-color-light: linear-gradient(135deg, oklch(0.85 0.01869 218.642), oklch(0.8 0.01811 183.685));
+  --bg-color-dark: linear-gradient(135deg, oklch(22.814% 0.04219 228.492), oklch(21.369% 0.04101 166.854));
   --bg-color: light-dark(var(--bg-color-light), var(--bg-color-dark));
 }
 
