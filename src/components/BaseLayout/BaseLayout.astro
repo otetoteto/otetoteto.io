@@ -34,11 +34,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     />
     <style is:global>
       body {
-        background-color: var(--bg-color);
+        background-image: var(--bg-color);
         color: var(--text-color);
-        transition:
-          color 0.4s,
-          background-color 0.4s;
+        transition: color 0.1s;
 
         display: grid;
         grid-template-columns: repeat(12, [col-start] 1fr);

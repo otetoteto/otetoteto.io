@@ -1,0 +1,27 @@
+:root {
+  --text-color: light-dark(#333, #fafafa);
+  --text-color-accent: light-dark(#333, #5975d0);
+
+  /* background color */
+  --bg-color-light: linear-gradient(135deg, oklch(0.96 0.012 220), oklch(0.92 0.025 180));
+  --bg-color-dark: linear-gradient(135deg, oklch(0.15 0.03 220), oklch(0.08 0.025 180));
+  --bg-color: light-dark(var(--bg-color-light), var(--bg-color-dark));
+}
+
+/* ダークモード強制指定時 */
+html[data-color-mode="dark"] {
+  color-scheme: dark;
+
+  --text-color: #fafafa;
+  --text-color-accent: #5975d0;
+  --bg-color: var(--bg-color-dark);
+}
+
+/* ライトモード強制指定時 */
+html[data-color-mode="light"] {
+  color-scheme: light;
+
+  --text-color: #333;
+  --text-color-accent: #333;
+  --bg-color: var(--bg-color-light);
+}

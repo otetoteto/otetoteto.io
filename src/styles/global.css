@@ -1,4 +1,5 @@
 @import "./reset.css" layer(reset);
+@import "./variables.css" layer(variables);
 
 /* zen-kaku-gothic-new-regular - japanese_latin */
 @font-face {
@@ -19,7 +20,4 @@
 
 :root {
   color-scheme: light dark;
-  --text-color: light-dark(#333, #fafafa);
-  --text-color-accent: light-dark(#333, #5975d0);
-  --bg-color: light-dark(#e4e4e4, #121212);
 }

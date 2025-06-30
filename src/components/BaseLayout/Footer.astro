@@ -2,7 +2,7 @@
 const year = new Date().getFullYear();
 ---
 
-<hr class="footer-divide" />
+<div class="footer-divide"></div>
 <footer class="footer">
   <p>
     © {year} - otetoteto, All rights reserved.
@@ -12,11 +12,24 @@ const year = new Date().getFullYear();
 
 <style>
   .footer {
-    padding-block: 0.25rem;
+    padding-block: 0.5rem;
     font-size: 0.75rem;
   }
 
   .footer-divide {
     grid-column: col-start / span 12;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding-block: 0.5rem;
+    position: relative;
+
+    &::before {
+      content: "☄︎ ☄︎ ☄︎ ☄︎ ☄︎";
+      font-size: 1rem;
+      color: color-mix(in srgb, var(--text-color) 80%, transparent);
+      letter-spacing: 0.5rem;
+      line-height: 1;
+    }
   }
 </style>

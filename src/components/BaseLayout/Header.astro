@@ -1,5 +1,5 @@
 ---
-
+import ColorModeSelector from '../ColorModeSelector/ColorModeSelector.astro';
 ---
 
 <header class="header">
@@ -10,6 +10,9 @@
       <li><a href="/photo">Photo</a></li>
     </ul>
   </nav>
+  <div class="header-controls">
+    <ColorModeSelector />
+  </div>
 </header>
 
 <script>
@@ -58,5 +61,11 @@
       font-weight: bold;
       color: var(--text-color-accent);
     }
+  }
+
+  .header-controls {
+    justify-self: end;
+    display: grid;
+    align-items: center;
   }
 </style>
