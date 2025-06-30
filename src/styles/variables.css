@@ -3,8 +3,8 @@
   --text-color-accent: light-dark(#333, #5975d0);
 
   /* background color */
-  --bg-color-light: linear-gradient(135deg, oklch(0.96 0.012 220), oklch(0.92 0.025 180));
-  --bg-color-dark: linear-gradient(135deg, oklch(0.15 0.03 220), oklch(0.08 0.025 180));
+  --bg-color-light: linear-gradient(135deg, oklch(93.916% 0.02272 217.855), oklch(90.723% 0.03291 180.082));
+  --bg-color-dark: linear-gradient(135deg, oklch(26.053% 0.05001 231.865), oklch(24.642% 0.04927 165.526));
   --bg-color: light-dark(var(--bg-color-light), var(--bg-color-dark));
 }
 

@@ -1,5 +1,5 @@
 ---
-import ColorModeSelector from '../ColorModeSelector/ColorModeSelector.astro';
+import ColorModeSelector from "../ColorModeSelector/ColorModeSelector.astro";
 ---
 
 <header class="header">
@@ -28,7 +28,7 @@ import ColorModeSelector from '../ColorModeSelector/ColorModeSelector.astro';
 
 <style>
   .header {
-    padding-block: 0.5rem;
+    padding-block-start: 1rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
@@ -47,10 +47,11 @@ import ColorModeSelector from '../ColorModeSelector/ColorModeSelector.astro';
       grid-auto-flow: column;
       grid-auto-columns: max-content;
       gap: 1rem;
+      place-self: center;
     }
 
     a {
-      font-size: 1.125rem;
+      font-size: 1rem;
 
       &:hover {
         opacity: 0.8;
