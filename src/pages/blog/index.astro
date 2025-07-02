@@ -2,23 +2,15 @@
 import BaseLayout from "../../components/BaseLayout/BaseLayout.astro";
 
 import { getCollection } from "astro:content";
+import BlogCard from "../../components/BlogCard/BlogCard.astro";
 
 const blogEntries = await getCollection("blog");
 ---
 
 <BaseLayout title="otetoteto.io | Blog">
-  <ul class="blog-posts">
-    {
-      blogEntries
-        .filter(({ data }) => data.published)
-        .map((post) => (
-          <li>
-            <a href={`/blog/${post.slug}`}>{post.data.title}</a>
-            <p>{post.data.publishedDate}</p>
-          </li>
-        ))
-    }
-  </ul>
+  <div
+    class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 py-8 md:grid-cols-[repeat(auto-fit,minmax(320px,1fr))] md:gap-8 lg:grid-cols-3 lg:gap-10 [&>*]:grid [&>*]:[grid-template-rows:subgrid]"
+  >
+    {blogEntries.filter(({ data }) => data.published).map((post) => <BlogCard slug={post.slug} {...post.data} />)}
+  </div>
 </BaseLayout>
-
-<style></style>

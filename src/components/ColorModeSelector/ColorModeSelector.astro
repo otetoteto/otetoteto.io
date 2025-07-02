@@ -1,16 +1,38 @@
 ---
+import { tv } from "tailwind-variants";
 
+const colorModeStyles = tv({
+  slots: {
+    container: "relative group",
+    trigger:
+      "grid place-items-center p-2 border-0 rounded-lg bg-transparent text-slate-900 dark:text-slate-100 cursor-pointer transition-all duration-200 ease-in-out w-10 h-10 hover:bg-slate-900/8 hover:dark:bg-slate-100/8",
+    icon: "grid place-items-center",
+    dropdown:
+      "absolute top-full right-0 mt-1 w-40 bg-slate-100/95 dark:bg-slate-800/95 backdrop-blur-lg border-0 rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)] dark:shadow-[0_4px_12px_rgba(255,255,255,0.1)] opacity-0 invisible -translate-y-2 transition-all duration-200 ease-in-out z-10 overflow-hidden group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 hover:opacity-100 hover:visible hover:translate-y-0",
+    item: "w-full grid grid-cols-[auto_1fr] items-center gap-3 px-3 py-3 border-0 bg-transparent text-slate-900 dark:text-slate-100 text-sm cursor-pointer transition-all duration-200 ease-in-out text-left whitespace-nowrap hover:bg-slate-900/12 hover:dark:bg-slate-100/12",
+    itemIcon: "grid items-center",
+  },
+  variants: {
+    active: {
+      true: {
+        item: "bg-slate-900/20 dark:bg-slate-100/20 font-medium",
+      },
+    },
+  },
+});
+
+const styles = colorModeStyles();
 ---
 
-<div class="color-mode-selector">
+<div class={styles.container()} id="color-mode-selector">
   <button
-    class="selector-trigger"
+    class={styles.trigger()}
     type="button"
     aria-haspopup="true"
     aria-expanded="false"
     aria-label="カラーモード選択"
   >
-    <span class="current-mode-icon" data-mode="system">
+    <span class={styles.icon()} data-mode="system">
       <!-- システムアイコン（デフォルト） -->
       <svg
         width="18"
@@ -29,10 +51,10 @@
     </span>
   </button>
 
-  <div class="dropdown-menu" role="menu">
-    <button class="dropdown-item" type="button" data-mode="light" role="menuitem">
+  <div class={styles.dropdown()} role="menu">
+    <button class={styles.item()} type="button" data-mode="light" role="menuitem">
       <svg
-        class="item-icon"
+        class={styles.itemIcon()}
         width="16"
         height="16"
         viewBox="0 0 24 24"
@@ -55,9 +77,9 @@
       ライト
     </button>
 
-    <button class="dropdown-item" type="button" data-mode="dark" role="menuitem">
+    <button class={styles.item()} type="button" data-mode="dark" role="menuitem">
       <svg
-        class="item-icon"
+        class={styles.itemIcon()}
         width="16"
         height="16"
         viewBox="0 0 24 24"
@@ -72,9 +94,9 @@
       ダーク
     </button>
 
-    <button class="dropdown-item active" type="button" data-mode="system" role="menuitem">
+    <button class={styles.item({ active: true })} type="button" data-mode="system" role="menuitem">
       <svg
-        class="item-icon"
+        class={styles.itemIcon()}
         width="16"
         height="16"
         viewBox="0 0 24 24"
@@ -94,9 +116,6 @@
 </div>
 
 <script>
-  const selector = document.querySelector(".color-mode-selector");
-  const items = selector?.querySelectorAll(".dropdown-item") as NodeListOf<HTMLButtonElement>;
-  const currentIcon = selector?.querySelector(".current-mode-icon") as HTMLElement;
   const html = document.documentElement;
 
   type ColorMode = "light" | "dark" | "system";
@@ -131,13 +150,28 @@
   function applyColorMode(mode: ColorMode) {
     if (mode === "system") {
       html.removeAttribute("data-color-mode");
+      // システム設定に従う
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        html.classList.add("dark");
+      } else {
+        html.classList.remove("dark");
+      }
     } else {
       html.setAttribute("data-color-mode", mode);
+      if (mode === "dark") {
+        html.classList.add("dark");
+      } else {
+        html.classList.remove("dark");
+      }
     }
   }
 
   // UIを更新
   function updateUI(mode: ColorMode) {
+    const selector = document.querySelector("#color-mode-selector");
+    const items = selector?.querySelectorAll("button[data-mode]") as NodeListOf<HTMLButtonElement>;
+    const currentIcon = selector?.querySelector("span[data-mode]") as HTMLElement;
+
     if (!currentIcon) return;
 
     // トリガーのアイコンを更新
@@ -147,124 +181,57 @@
     // アクティブな項目を更新
     items?.forEach((item) => {
       const itemMode = item.dataset.mode as ColorMode;
-      item.classList.toggle("active", itemMode === mode);
+      const activeClasses = ["bg-slate-900/20", "dark:bg-slate-100/20", "font-medium"];
+      const inactiveClasses = ["bg-transparent"];
+
+      if (itemMode === mode) {
+        item.classList.add(...activeClasses);
+        item.classList.remove(...inactiveClasses);
+      } else {
+        item.classList.remove(...activeClasses);
+        item.classList.add(...inactiveClasses);
+      }
     });
   }
 
-  // 初期状態を設定
-  if (selector) {
-    updateUI(savedMode);
-    applyColorMode(savedMode);
+  // DOMContentLoaded時またはすぐに初期化
+  function initializeColorMode() {
+    const selector = document.querySelector("#color-mode-selector");
+    const items = selector?.querySelectorAll("button[data-mode]") as NodeListOf<HTMLButtonElement>;
 
-    // ドロップダウンアイテムのクリック処理
-    items?.forEach((item) => {
-      item.addEventListener("click", (e) => {
-        const target = e.currentTarget as HTMLButtonElement;
-        const selectedMode = target?.dataset.mode as ColorMode;
-        if (selectedMode) {
-          localStorage.setItem("color-mode", selectedMode);
-          applyColorMode(selectedMode);
-          updateUI(selectedMode);
+    if (selector) {
+      updateUI(savedMode);
+
+      // ドロップダウンアイテムのクリック処理
+      items?.forEach((item) => {
+        item.addEventListener("click", (e) => {
+          const target = e.currentTarget as HTMLButtonElement;
+          const selectedMode = target?.dataset.mode as ColorMode;
+          if (selectedMode) {
+            localStorage.setItem("color-mode", selectedMode);
+            applyColorMode(selectedMode);
+            updateUI(selectedMode);
+          }
+        });
+      });
+
+      // システム設定の変更を監視
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+        const currentMode = localStorage.getItem("color-mode") as ColorMode;
+        if (currentMode === "system" || !currentMode) {
+          applyColorMode("system");
         }
       });
-    });
+    }
+  }
+
+  // 即座に適用（FOUC防止）
+  applyColorMode(savedMode);
+
+  // DOM準備完了後にUI初期化
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeColorMode);
+  } else {
+    initializeColorMode();
   }
 </script>
-
-<style>
-  .color-mode-selector {
-    position: relative;
-
-    .selector-trigger {
-      display: grid;
-      place-items: center;
-      padding: 0.5rem;
-      border: none;
-      border-radius: 0.5rem;
-      background: transparent;
-      color: var(--text-color);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      width: 2.5rem;
-      height: 2.5rem;
-
-      &:hover {
-        background: color-mix(in srgb, var(--text-color) 8%, transparent);
-
-        .dropdown-menu {
-          opacity: 1;
-          visibility: visible;
-          transform: translateY(0);
-        }
-      }
-    }
-
-    .current-mode-icon {
-      display: grid;
-      place-items: center;
-    }
-
-    .dropdown-menu {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      margin-top: 0.25rem;
-      width: 10rem;
-      background: color-mix(in srgb, var(--text-color) 4%, transparent);
-      border: none;
-      border-radius: 0.5rem;
-      box-shadow: 0 4px 12px color-mix(in srgb, var(--text-color) 15%, transparent);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-0.5rem);
-      transition: all 0.2s ease;
-      z-index: 10;
-      overflow: hidden;
-      backdrop-filter: blur(8px);
-
-      &:hover {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-      }
-    }
-
-    .selector-trigger:hover + .dropdown-menu,
-    .dropdown-menu:hover {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .dropdown-item {
-      width: 100%;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.75rem;
-      border: none;
-      background: transparent;
-      color: var(--text-color);
-      font-size: 0.875rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-align: start;
-      white-space: nowrap;
-
-      &:hover {
-        background: color-mix(in srgb, var(--text-color) 12%, transparent);
-      }
-
-      &.active {
-        background: color-mix(in srgb, var(--text-color) 20%, transparent);
-        font-weight: 500;
-      }
-    }
-
-    .item-icon {
-      display: grid;
-      align-items: center;
-    }
-  }
-</style>

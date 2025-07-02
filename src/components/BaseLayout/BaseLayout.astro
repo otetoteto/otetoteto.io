@@ -32,42 +32,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       name="description"
       content={description ?? "otetotetoのサイトです。気が向いたときにあることないこと吐き出す場です。"}
     />
-    <style is:global>
-      body {
-        background-image: var(--bg-color);
-        color: var(--text-color);
-        transition: color 0.1s;
-
-        display: grid;
-        grid-template-columns: repeat(12, [col-start] 1fr);
-        grid-template-rows: auto 1fr auto;
-        column-gap: 1rem;
-        min-height: 100svh;
-        padding-inline: 1rem;
-
-        :where(& > *) {
-          grid-column: col-start / span 12;
-        }
-
-        @media (width > 576px) {
-          :where(& > *) {
-            grid-column: col-start 2 / span 10;
-          }
-        }
-
-        @media (width > 768px) {
-          :where(& > *) {
-            grid-column: col-start 3 / span 8;
-          }
-        }
-
-        @media (width > 1200px) {
-          :where(& > *) {
-            grid-column: col-start 4 / span 6;
-          }
-        }
-      }
-    </style>
   </head>
   <body>
     <Header />

@@ -2,21 +2,33 @@
 import ColorModeSelector from "../ColorModeSelector/ColorModeSelector.astro";
 ---
 
-<header class="header">
-  <a href="/" class="header-title">otetoteo.io</a>
-  <nav class="header-nav">
-    <ul>
-      <li><a href="/blog">Blog</a></li>
-      <li><a href="/photo">Photo</a></li>
+<header class="pt-4 grid grid-cols-3 gap-4 items-center">
+  <a href="/" class="text-2xl font-bold w-max">otetoteo.io</a>
+  <nav class="justify-self-center">
+    <ul class="grid grid-flow-col auto-cols-max gap-4">
+      <li>
+        <a
+          href="/blog"
+          class="text-base hover:opacity-80 [&[aria-current=page]]:font-bold [&[aria-current=page]]:text-blue-600 dark:[&[aria-current=page]]:text-blue-400"
+          >Blog</a
+        >
+      </li>
+      <li>
+        <a
+          href="/photo"
+          class="text-base hover:opacity-80 [&[aria-current=page]]:font-bold [&[aria-current=page]]:text-blue-600 dark:[&[aria-current=page]]:text-blue-400"
+          >Photo</a
+        >
+      </li>
     </ul>
   </nav>
-  <div class="header-controls">
+  <div class="justify-self-end grid items-center">
     <ColorModeSelector />
   </div>
 </header>
 
 <script>
-  const navLinks = document.querySelectorAll(".header-nav a");
+  const navLinks = document.querySelectorAll("nav a");
   for (const link of navLinks) {
     const href = link.getAttribute("href");
     if (href === null || href === "/") continue;
@@ -25,48 +37,3 @@ import ColorModeSelector from "../ColorModeSelector/ColorModeSelector.astro";
     }
   }
 </script>
-
-<style>
-  .header {
-    padding-block-start: 1rem;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    align-items: center;
-  }
-
-  .header-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    width: max-content;
-  }
-
-  .header-nav {
-    ul {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: max-content;
-      gap: 1rem;
-      place-self: center;
-    }
-
-    a {
-      font-size: 1rem;
-
-      &:hover {
-        opacity: 0.8;
-      }
-    }
-
-    a[aria-current="page"] {
-      font-weight: bold;
-      color: var(--text-color-accent);
-    }
-  }
-
-  .header-controls {
-    justify-self: end;
-    display: grid;
-    align-items: center;
-  }
-</style>

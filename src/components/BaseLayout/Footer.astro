@@ -2,34 +2,13 @@
 const year = new Date().getFullYear();
 ---
 
-<div class="footer-divide"></div>
-<footer class="footer">
+<div
+  class="[grid-column:col-start/span_12] grid justify-center items-center py-2 relative before:content-['☄︎_☄︎_☄︎_☄︎_☄︎'] before:text-base before:text-slate-900/80 before:dark:text-slate-100/80 before:tracking-[0.5rem] before:leading-none"
+>
+</div>
+<footer class="py-2 text-xs">
   <p>
     © {year} - otetoteto, All rights reserved.
   </p>
   <p>このブログは <a href="https://astro.build/">Astro</a> で構築されています。</p>
 </footer>
-
-<style>
-  .footer {
-    padding-block: 0.5rem;
-    font-size: 0.75rem;
-  }
-
-  .footer-divide {
-    grid-column: col-start / span 12;
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    padding-block: 0.5rem;
-    position: relative;
-
-    &::before {
-      content: "☄︎ ☄︎ ☄︎ ☄︎ ☄︎";
-      font-size: 1rem;
-      color: color-mix(in srgb, var(--text-color) 80%, transparent);
-      letter-spacing: 0.5rem;
-      line-height: 1;
-    }
-  }
-</style>

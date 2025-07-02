@@ -19,6 +19,9 @@ const { Content } = await entry.render();
 <BaseLayout title={entry.data.title}>
   <article class="post-container">
     <h1 class="post-title">{entry.data.title}</h1>
+    <div class="card-image">
+      <img src={`https://image.otetoteto.io/${entry.data.thumbnail}`} alt="" loading="lazy" />
+    </div>
     <Content />
   </article>
 </BaseLayout>
@@ -28,24 +31,24 @@ const { Content } = await entry.render();
     padding-block: 1.5rem;
     display: grid;
     gap: 1rem;
+  }
 
-    .post-title {
-      font-size: 2rem;
-      font-weight: bold;
-    }
+  .post-container .post-title {
+    font-size: 2rem;
+    font-weight: bold;
+  }
 
-    pre {
-      padding: 1rem;
-    }
+  .post-container pre {
+    padding: 1rem;
+  }
 
-    code:not(pre *) {
-      padding: 0.2rem 0.4rem;
-      border-radius: 0.3rem;
-      background-color: blueviolet;
-      color: yellow;
-      font-style: italic;
-      font-size: 0.9rem;
-    }
+  .post-container code:not(pre *) {
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+    background-color: blueviolet;
+    color: yellow;
+    font-style: italic;
+    font-size: 0.9rem;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -53,7 +56,6 @@ const { Content } = await entry.render();
     .astro-code span {
       color: var(--shiki-dark) !important;
       background-color: var(--shiki-dark-bg) !important;
-      /* フォントスタイルを変更したい場合のみ */
       font-style: var(--shiki-dark-font-style) !important;
       font-weight: var(--shiki-dark-font-weight) !important;
       text-decoration: var(--shiki-dark-text-decoration) !important;
