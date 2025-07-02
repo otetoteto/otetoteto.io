@@ -1,55 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: oklab(0.5 0 0);
-  --color-secondary: oklab(0.7 0 0);
-  --color-accent: oklab(0.6 0.1 0.1);
+  --breakpoint-*: initial;
+  --breakpoint-tablet: 40rem;
+  --breakpoint-laptop: 64rem;
+  --breakpoint-desktop: 80rem;
 
-  /* Dark mode configuration */
-  --default-transition-duration: 150ms;
-  --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --color-*: initial;
 }
 
+@custom-variant aria-current (&[aria-current="page"]);
+
 :root {
-  /* ライトモード用の色設定 */
   --text-color: oklch(0.2 0.05 260);
-  --text-color-secondary: oklch(0.5 0.03 260);
-  --bg-color-light: linear-gradient(135deg, oklch(0.85 0.01869 218.642), oklch(0.8 0.01811 183.685));
-  --bg-color-dark: linear-gradient(135deg, oklch(22.814% 0.04219 228.492), oklch(21.369% 0.04101 166.854));
-  --bg-color: var(--bg-color-light);
-  --card-bg: oklch(0.97 0.005 260);
-  --card-bg-hover: oklch(0.95 0.01 260);
-  --card-border: oklch(0.88 0.01 260);
-  --card-border-hover: oklch(0.8 0.015 260);
+  --bg-color: linear-gradient(135deg, oklch(0.85 0.01869 218.642), oklch(0.8 0.01811 183.685));
 
   color-scheme: light;
 }
 
 :root.dark {
-  /* ダークモード用の色設定 */
   --text-color: oklch(0.9 0.025 180);
-  --text-color-secondary: oklch(0.7 0.015 180);
-  --bg-color: var(--bg-color-dark);
-  --card-bg: oklch(0.15 0.01 220);
-  --card-bg-hover: oklch(0.18 0.015 220);
-  --card-border: oklch(0.25 0.015 220);
-  --card-border-hover: oklch(0.35 0.02 220);
+  --bg-color: linear-gradient(135deg, oklch(22.814% 0.04219 228.492), oklch(21.369% 0.04101 166.854));
 
   color-scheme: dark;
 }
 
-/* Custom card hover effects */
-.card-hover {
-  transition: all 0.3s ease;
-}
-
-.card-hover:hover {
-  background-color: var(--card-bg-hover) !important;
-  border-color: var(--card-border-hover) !important;
-  transform: translateY(-2px);
-}
-
-/* Global layout styles */
 body {
   background-image: var(--bg-color);
   color: var(--text-color);
@@ -67,19 +42,19 @@ body > * {
   grid-column: col-start / span 12;
 }
 
-@media (width > 576px) {
+@media (width >= 40rem) {
   body > * {
     grid-column: col-start 2 / span 10;
   }
 }
 
-@media (width > 768px) {
+@media (width >= 64rem) {
   body > * {
     grid-column: col-start 3 / span 8;
   }
 }
 
-@media (width > 1200px) {
+@media (width >= 80rem) {
   body > * {
     grid-column: col-start 4 / span 6;
   }

@@ -5,10 +5,8 @@ import BaseLayout from "../components/BaseLayout/BaseLayout.astro";
 <BaseLayout>
   <div class="py-24 text-center">
     <div class="grid gap-6 max-w-2xl mx-auto">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight m-0" style="color: var(--text-color)">
-        otetotetoのひとりごと
-      </h1>
-      <p class="text-lg md:text-xl leading-relaxed m-0" style="color: var(--text-color-secondary)">
+      <h1 class="text-4xl font-bold leading-tight m-0">otetotetoのひとりごと</h1>
+      <p class="text-lg leading-relaxed m-0">
         気が向いたときに<br />
         あることないこと吐き出す場です
       </p>
@@ -16,26 +14,16 @@ import BaseLayout from "../components/BaseLayout/BaseLayout.astro";
   </div>
 
   <div class="py-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-      <a
-        href="/blog"
-        class="card-hover block no-underline text-inherit text-center p-8 rounded-2xl"
-        style="background-color: var(--card-bg); border: 1px solid var(--card-border)"
-      >
+    <div class="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
+      <a href="/blog" class="card-hover block no-underline text-inherit text-center p-8 rounded-2xl">
         <div class="text-4xl mb-4">📝</div>
-        <h3 class="text-xl font-semibold mb-2" style="color: var(--text-color)">ブログ</h3>
-        <p class="m-0 leading-relaxed text-sm" style="color: var(--text-color-secondary)">
-          そんときの気分で書いたもの
-        </p>
+        <h3 class="text-xl font-semibold mb-2">ブログ</h3>
+        <p class="m-0 leading-relaxed text-sm">そんときの気分で書いたもの</p>
       </a>
-      <a
-        href="/photo"
-        class="card-hover block no-underline text-inherit text-center p-8 rounded-2xl"
-        style="background-color: var(--card-bg); border: 1px solid var(--card-border)"
-      >
+      <a href="/photo" class="card-hover block no-underline text-inherit text-center p-8 rounded-2xl">
         <div class="text-4xl mb-4">📷</div>
-        <h3 class="text-xl font-semibold mb-2" style="color: var(--text-color)">フォト</h3>
-        <p class="m-0 leading-relaxed text-sm" style="color: var(--text-color-secondary)">撮ったら載せるかも</p>
+        <h3 class="text-xl font-semibold mb-2">フォト</h3>
+        <p class="m-0 leading-relaxed text-sm">撮ったら載せるかも</p>
       </a>
     </div>
   </div>
